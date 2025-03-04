@@ -57,4 +57,23 @@ public class UserService {
         }       
     }
 
+    // Listado filtrado - Los criterios de filtrado deben ser acordes a los que se hayan definido en el frontend
+    public List<User> filteredSearchUsers(String nombre, Integer minEdad, Integer maxEdad, Boolean administrador) {
+        if (minEdad != null && maxEdad != null) {
+            return userRepository.findByEdadBetween(minEdad, maxEdad);
+        } else if (nombre != null) {
+            return userRepository.findByNombreContaining(nombre);
+            /*
+             * Equivalente en código HQL al query method findByNombreContaining utilizando un entityManager
+             * entityManager.createQuery("SELECT u FROM Usuario u WHERE u.nombre LIKE :nombre", Usuario.class)
+             * .setParameter("nombre", "%" + nombre + "%")
+             * .getResultList();
+             */
+        } else if (administrador != null) {
+            return userRepository.findByAdministrador(administrador);
+        } else {
+            return userRepository.findAll();
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.itacadam.myapp.api;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.itacadam.myapp.api.requests.UserCreationRequest;
@@ -37,6 +38,16 @@ public class UserController {
     @GetMapping("/getall")
     public List<User> getAllUser() {
         return userService.getAllUsers();
+    }
+
+    @GetMapping("/getfiltered")
+    public List<User> buscarUsuarios(
+            @RequestParam(required = false) String nombre,
+            @RequestParam(required = false) Integer minEdad,
+            @RequestParam(required = false) Integer maxEdad,
+            @RequestParam(required = false) Boolean esAdministrador) {
+
+        return userService.filteredSearchUsers(nombre,  minEdad, maxEdad, esAdministrador);
     }
 
 }

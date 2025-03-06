@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.itacadam.myapp.models.User;
 
+import jakarta.transaction.Transactional;
+
 
 
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -17,6 +19,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByAdministradorTrue();  // Buscar solo administradores
     List<User> findByAdministrador(Boolean administrador);  // Buscar por administrador (true/false)
     List<User> findByNombreContainingAndEdadBetweenAndAdministrador(String nombre, Integer minEdad, Integer maxEdad, Boolean activo);  // Criterio multiple
+    @Transactional
+    void deleteByNombre(String nombre);
 
 
 }

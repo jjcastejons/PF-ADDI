@@ -40,6 +40,10 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public void removeUserByName(String nombre) {
+        userRepository.deleteByNombre(nombre);
+    }
+
 
     public Optional<User> getUser(final long id) {
         return userRepository.findById(id);
